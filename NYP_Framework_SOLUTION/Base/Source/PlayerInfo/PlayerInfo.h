@@ -5,6 +5,9 @@
 #include "../WeaponInfo/WeaponInfo.h"
 #include "../SpatialPartition/SpatialPartition.h"
 #include "../GenericEntity.h"
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
+#include "MeshBuilder.h"
 
 class CPlayerInfo
 {
@@ -108,6 +111,9 @@ public:
 	// Handling Camera
 	void AttachCamera(FPSCamera* _cameraPtr);
 	void DetachCamera(void);
+
+	// Render
+	void Render();
 
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;

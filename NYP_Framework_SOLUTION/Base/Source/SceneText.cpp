@@ -176,6 +176,10 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateOBJ("MortarRightHead", "OBJ//MortarRight.obj");
 	MeshBuilder::GetInstance()->GetMesh("MortarRightHead")->textureID = LoadTGA("Image//Mortar.tga");
 
+	// Gun
+	MeshBuilder::GetInstance()->GenerateOBJ("gun", "OBJ//gun.obj");
+	MeshBuilder::GetInstance()->GetMesh("gun")->textureID = LoadTGA("Image//gun.tga");
+
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10, 0.1f);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -387,6 +391,7 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
+	playerInfo->Render();
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
