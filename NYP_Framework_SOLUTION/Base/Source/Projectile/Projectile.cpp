@@ -153,7 +153,7 @@ void CProjectile::Render(void)
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
-	//modelStack.Scale(scale.x, scale.y, scale.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
 	RenderHelper::RenderMesh(modelMesh);
 	modelStack.PopMatrix();
 }
@@ -175,6 +175,8 @@ CProjectile* Create::Projectile(const std::string& _meshName,
 	result->SetStatus(true);
 	result->SetCollider(true);
 	result->SetSource(_source);
+	result->SetAABB(MeshBuilder::GetInstance()->GetMesh(_meshName)->Max, MeshBuilder::GetInstance()->GetMesh(_meshName)->Min);
+	result->SetScale(Vector3(0.2, 0.2, 0.2));
 	EntityManager::GetInstance()->AddEntity(result);
 
 	return result;

@@ -1,10 +1,10 @@
-﻿Build started 4/1/2017 10:27:10 PM.
-     1>Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Base\Base.vcxproj" on node 2 (Build target(s)).
+﻿Build started 10/1/2017 12:32:32 AM.
+     1>Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Base\Base.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\/Common/Source" /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\/glfw/include" /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\/glew/include" /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\WeaponInfo\WeaponInfo.cpp
-         WeaponInfo.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\/Common/Source" /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\/glfw/include" /I"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\/glew/include" /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Mortar\Mortar.cpp
+         Mortar.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Debug\Base.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Debug" /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\/glfw/lib-msvc100" /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\/glew/lib" Common.lib winmm.lib opengl32.lib glu32.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Debug\Base.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Debug\Base.lib" /MACHINE:X86 Debug\Application.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Debug\Base.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Debug" /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\/glfw/lib-msvc100" /LIBPATH:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\/glew/lib" Common.lib winmm.lib opengl32.lib glu32.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Debug\Base.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Debug\Base.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Enemy.obj
          Debug\EntityManager.obj
          Debug\FPSCamera.obj
@@ -36,9 +36,9 @@
          Debug\WeaponInfo.obj
      1>Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
      1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-         Base.vcxproj -> C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Debug\Base.exe
-     1>Done Building Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\Assignment1\NYP_Framework_SOLUTION\Base\Base.vcxproj" (Build target(s)).
+         Base.vcxproj -> C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Debug\Base.exe
+     1>Done Building Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Base\Base.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.06
+Time Elapsed 00:00:01.42

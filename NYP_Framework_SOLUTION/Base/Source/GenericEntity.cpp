@@ -7,6 +7,7 @@
 GenericEntity::GenericEntity(Mesh* _modelMesh)
 	: modelMesh(_modelMesh)
 	, type("generic")
+	, Body(NULL)
 {
 }
 
@@ -17,6 +18,16 @@ GenericEntity::~GenericEntity()
 void GenericEntity::Update(double _dt)
 {
 	// Does nothing here, can inherit & override or create your own version of this class :D
+}
+
+void GenericEntity::SetType(std::string v_type)
+{
+	type = v_type;
+}
+
+std::string GenericEntity::GetType()
+{
+	return type;
 }
 
 void GenericEntity::Render()

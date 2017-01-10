@@ -64,6 +64,10 @@ public:
 	// Check if an object is in this grid
 	bool IsHere(EntityBase* theObject) const;
 
+	Vector3 GetMin();
+
+	Vector3 GetMax();
+
 	// Get list of objects in this grid
 	vector<EntityBase*> GetListOfObject(void);
 

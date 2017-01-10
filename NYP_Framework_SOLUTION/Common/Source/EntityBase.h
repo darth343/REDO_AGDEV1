@@ -22,6 +22,8 @@ public:
 	bool IsDone();
 	void SetIsDone(const bool _value);
 
+	bool HasChildren();
+	void SetChildren(bool m_bChildren);
 	// Check if this entity has a collider class parent
 	virtual bool HasCollider(void) const;
 	// Set the flag to indicate if this entity has a collider class parent
@@ -42,6 +44,7 @@ protected:
 	bool isDone;
 	bool m_bCollider;
 	bool bLaser;
+	bool m_bChildren;
 };
 
 #endif // ENTITY_BASE_H

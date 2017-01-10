@@ -58,6 +58,7 @@ uniform Material material;
 uniform int numLights;
 uniform bool colorTextureEnabled;
 uniform sampler2D colorTexture;
+uniform bool textEnabled;
 
 void main(){
 	if(lightEnabled == true)
@@ -121,8 +122,12 @@ void main(){
 	else
 	{
 		if(colorTextureEnabled == true)
+		{
 			color = texture2D( colorTexture, texCoord );
+		}
 		else
+		{
 			color = vec4(fragmentColor, 1);
+		}
 	}
 }

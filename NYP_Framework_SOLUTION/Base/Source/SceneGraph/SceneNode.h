@@ -39,6 +39,8 @@ public:
 	bool DeleteChild(const int ID);
 	// Delete all children from this node using its ID
 	bool DeleteAllChildren(void);
+
+	vector<CSceneNode*> GetListOfChildren();
 	// Detach a child from this node using the pointer to the node
 	CSceneNode* DetachChild(EntityBase* theEntity = NULL);
 	// Detach a child from this node using its ID
@@ -57,6 +59,8 @@ public:
 
 	// PrintSelf for debug purposes
 	void PrintSelf(const int numTabs = 0);
+
+	Vector3 GetWorldPosition(Vector3& position = Vector3(0, 0, 0));
 
 protected:
 	int			ID;

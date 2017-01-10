@@ -132,6 +132,9 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateText("text", 16, 16);
 	MeshBuilder::GetInstance()->GetMesh("text")->textureID = LoadTGA("Image//calibri.tga");
 	MeshBuilder::GetInstance()->GetMesh("text")->material.kAmbient.Set(1, 0, 0);
+	MeshBuilder::GetInstance()->GenerateText("text_noalpha", 16, 16);
+	MeshBuilder::GetInstance()->GetMesh("text_noalpha")->textureID = LoadTGA("Image//calibri_noalpha.tga");
+	MeshBuilder::GetInstance()->GetMesh("text_noalpha")->material.kAmbient.Set(1, 0, 0);
 	MeshBuilder::GetInstance()->GenerateOBJ("Chair", "OBJ//chair.obj");
 	MeshBuilder::GetInstance()->GetMesh("Chair")->textureID = LoadTGA("Image//chair.tga");
 	MeshBuilder::GetInstance()->GenerateRing("ring", Color(1, 0, 1), 36, 1, 0.5f);
@@ -193,14 +196,17 @@ void SceneText::Init()
 		{
 			if (i >= -1 && i <= -1 || j >= -1 && j <= -1)
 				continue;
-			GenericEntity* aCube = Create::Entity("cube", Vector3(i * 100 + 50, 10.0f, j * 100 + 50), Vector3(5, 5, 5), true);
+			GenericEntity* aCube = Create::Entity("cube", Vector3(i * 100 + 50, 5.0f, j * 100 + 50), Vector3(5, 5, 5), true);
 			aCube->InitLOD("cube", "sphere", "cubeSG");
-			EntityManager::GetInstance()->SetEntityHolder(aCube);
+			CSpatialPartition::GetInstance()->Remove(aCube);
+			CSpatialPartition::GetInstance()->Add(aCube);
 		}
 	}
 
-	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 10.0f, -20.0f), Vector3(1, 1, 1), true);
+	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 10.0f, -20.0f), Vector3(10, 10, 10), true);
 	aCube->InitLOD("cube", "sphere", "cubeSG");
+	cout << aCube->GetMin() << endl;
+	cout << aCube->GetMax() << endl;
 	//aCube->SetScale(Vector3(100, 1, 1));
 	
 	EntityManager::GetInstance()->SetEntityHolder(aCube);
@@ -244,14 +250,19 @@ void SceneText::Init()
 	//grandchildNode->SetUpdateTransformation(aRotateMtx);
 	
 	// Create a CEnemy instance
-	theEnemy = new CEnemy();
-	theEnemy->Init();
+	//theEnemy = new CEnemy();
+	//theEnemy->Init();
 
-	CMortar* mortar = new CMortar();
+	CMortar* mortar;/* = new CMortar();
 	mortar->Init();
+	mortar->SetPosition(Vector3(400, 5, 50));*/
+
+	mortar = new CMortar();
+	mortar->Init();
+	mortar->SetPosition(Vector3(-40, 5, 50));
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
-//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
+	//Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
@@ -263,7 +274,7 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
-	theEnemy->SetTerrain(groundEntity);
+	//theEnemy->SetTerrain(groundEntity);
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;

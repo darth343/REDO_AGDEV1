@@ -3,7 +3,10 @@
 #include "Collider\Collider.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "MeshBuilder.h"
 #include "../LevelOfDetails/LevelOfDetails.h"
+#include "../PlayerInfo/PlayerInfo.h"
+#include <sstream>
 
 template <typename T> vector<T> concat(vector<T> &a, vector<T> &b) {
 	vector<T> ret = vector<T>();
@@ -176,6 +179,21 @@ void CSpatialPartition::Render(Vector3* theCameraPosition)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(xGridSize*i - (xSize >> 1) + (xGridSize >> 1), 0.0f, zGridSize*j - (zSize >> 1) + (zGridSize >> 1));
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 5, 0);
+			Vector3 PlayerPos = CPlayerInfo::GetInstance()->GetPos();
+			Vector3 Pos = (theGrid[i*zNumOfGrid + j].GetMin() + theGrid[i*zNumOfGrid + j].GetMax()) * 0.5;
+			if (theGrid[i*zNumOfGrid + j].GetMin().x < PlayerPos.x && theGrid[i*zNumOfGrid + j].GetMax().x > PlayerPos.x &&
+				theGrid[i*zNumOfGrid + j].GetMin().z < PlayerPos.z && theGrid[i*zNumOfGrid + j].GetMax().z > PlayerPos.z)
+			{
+				std::stringstream ss;
+				ss << "Object Count: " << theGrid[i*zNumOfGrid + j].GetListOfObject().size();
+				modelStack.Rotate(Math::RadianToDegree(atan2(Pos.x - PlayerPos.x, Pos.z - PlayerPos.z)) + 180.f, 0, 1, 0);
+				RenderHelper::RenderText(MeshBuilder::GetInstance()->GetMesh("text_noalpha"), ss.str(), Color(1, 1, 1));
+			}
+			modelStack.PopMatrix();
+
 			modelStack.PushMatrix();
 			modelStack.Scale(xGridSize, 1.0f, zGridSize);
 			modelStack.Rotate(-90, 1, 0, 0);
@@ -238,6 +256,17 @@ CGrid CSpatialPartition::GetGrid(const int xIndex, const int yIndex) const
 {
 	return theGrid[ xIndex*zNumOfGrid + yIndex ];
 }
+
+/********************************************************************************
+Get a particular grid
+********************************************************************************/
+CGrid CSpatialPartition::GetGrid(Vector3 position) const
+{
+	int xIndex = (((int)position.x - (-xSize >> 1)) / (xSize / xNumOfGrid));
+	int zIndex = (((int)position.z - (-zSize >> 1)) / (zSize / zNumOfGrid));
+	return theGrid[xIndex*zNumOfGrid + zIndex];
+}
+
 
 /********************************************************************************
  Get vector of objects from this Spatial Partition

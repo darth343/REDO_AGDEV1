@@ -15,15 +15,11 @@ protected:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 target, up;
 
-	CSceneNode* Body;
-	CSceneNode* MidHead;
-	CSceneNode* LeftHead;
-	CSceneNode* RightHead;
-
 	CMortarPart* BodyPart;
 	CMortarPart* HeadMidPart;
 	CMortarPart* HeadLeftPart;
 	CMortarPart* HeadRightPart;
+
 public:
 
 	enum MortarState
@@ -40,6 +36,8 @@ public:
 	void Init(void);
 	// Reset  instance to default
 	void Reset(void);
+
+	void Rotate(bool direction);
 
 	// Update
 	void Update(double dt = 0.0333f);

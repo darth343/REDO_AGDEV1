@@ -5,6 +5,7 @@
 #include <string>
 #include "Collider/Collider.h"
 #include "LevelOfDetails\LevelOfDetails.h"
+#include "SceneGraph\SceneNode.h"
 
 class Mesh;
 
@@ -19,9 +20,12 @@ public:
 
 	// Set the maxAABB and minAABB
 	void SetAABB(Vector3 maxAABB, Vector3 minAABB);
-
+	void SetType(std::string v_type);
+	std::string GetType();
 	Vector3 GetMin();
 	Vector3 GetMax();
+	CSceneNode* Body;
+
 protected:
 	std::string type;
 private:

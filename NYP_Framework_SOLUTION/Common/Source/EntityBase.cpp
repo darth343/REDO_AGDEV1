@@ -6,6 +6,7 @@ EntityBase::EntityBase()
 	, isDone(false)
 	, m_bCollider(false)
 	, bLaser(false)
+	, m_bChildren(false)
 {
 }
 
@@ -67,4 +68,14 @@ Vector3 EntityBase::GetMin()
 Vector3 EntityBase::GetMax()
 {
 	return Vector3(position.x + 0.1, position.y + 0.1, position.z + 0.1);
+}
+
+bool EntityBase::HasChildren()
+{
+	return m_bChildren;
+}
+
+void EntityBase::SetChildren(bool m_Children)
+{
+	m_bChildren = m_Children;
 }

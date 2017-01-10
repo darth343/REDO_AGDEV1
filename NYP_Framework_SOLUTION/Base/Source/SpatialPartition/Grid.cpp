@@ -267,3 +267,13 @@ void CGrid::SetDetailLevel(const CLevelOfDetails::DETAIL_LEVEL theDetailLevel)
 		++it;
 	}
 }
+
+Vector3 CGrid::GetMax()
+{
+	return max;
+}
+
+Vector3 CGrid::GetMin()
+{
+	return min;
+}

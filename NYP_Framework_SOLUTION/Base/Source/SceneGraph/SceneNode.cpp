@@ -316,6 +316,11 @@ int CSceneNode::GetNumOfChild(void)
 	return NumOfChild;
 }
 
+vector<CSceneNode*> CSceneNode::GetListOfChildren()
+{
+	return theChildren;
+}
+
 // Update the Scene Graph
 void CSceneNode::Update(void)
 {
@@ -425,4 +430,21 @@ void CSceneNode::PrintSelf(const int numTabs)
 			it++;
 		}
 	}
+}
+
+Vector3 CSceneNode::GetWorldPosition(Vector3& position)
+{
+	Vector3 temp;
+	if (theParent != NULL)
+	{
+		theParent->GetWorldPosition(position);
+		GetTranslate(temp.x, temp.y, temp.z);
+		position += temp;
+	}
+	else
+	{
+		GetTranslate(temp.x, temp.y, temp.z);
+		position += temp;
+	}
+	return position;
 }
