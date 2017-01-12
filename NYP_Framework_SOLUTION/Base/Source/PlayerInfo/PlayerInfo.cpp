@@ -1,6 +1,5 @@
 #include "PlayerInfo.h"
 #include <iostream>
-
 #include "MouseController.h"
 #include "KeyboardController.h"
 #include "Mtx44.h"
@@ -14,7 +13,7 @@
 CPlayerInfo *CPlayerInfo::s_instance = 0;
 
 CPlayerInfo::CPlayerInfo(void)
-	: m_dSpeed(80.0)
+	: m_dSpeed(160.0)
 	, m_dAcceleration(10.0)
 	, m_bJumpUpwards(false)
 	, m_dJumpSpeed(10.0)
@@ -663,4 +662,21 @@ void CPlayerInfo::AttachCamera(FPSCamera* _cameraPtr)
 void CPlayerInfo::DetachCamera()
 {
 	attachedCamera = nullptr;
+}
+
+void CPlayerInfo::Render()
+{
+	Vector3 view = (target - position).Normalized();
+
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+
+	modelStack.Translate(position.x + view.x, position.y + view.y, position.z + view.z);
+	modelStack.Rotate(-85 + Math::RadianToDegree(atan2(view.x, view.z)), 0, 1, 0);
+	modelStack.Rotate(90.f - Math::RadianToDegree(acos(view.Dot(Vector3(0, 1, 0)))), 0, 0, 1);
+	modelStack.Translate(1.6f, -0.6f, 0.6f);
+
+	RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("gun"));
+	modelStack.PopMatrix();
 }

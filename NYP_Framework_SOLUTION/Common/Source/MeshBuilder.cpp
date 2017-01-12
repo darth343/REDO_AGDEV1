@@ -1,6 +1,6 @@
 #include "MeshBuilder.h"
 #include "Mesh.h"
-#include <GL\glew.h>
+#include "../../glew/include/GL/glew.h"
 #include <vector>
 #include "MyMath.h"
 #include "LoadOBJ.h"

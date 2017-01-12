@@ -43,8 +43,8 @@ private:
 	TextEntity* textObj[3];
 	SCENESTATE state;
 	Light* lights[2];
-	vector<CMortar*> MortarHandle;
 	float delaytimer;
+	int wave;
 	static SceneText* sInstance; // The pointer to the object that gets registered
 };
 

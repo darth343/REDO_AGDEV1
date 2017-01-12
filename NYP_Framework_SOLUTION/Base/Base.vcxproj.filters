@@ -132,6 +132,9 @@
     <ClCompile Include="Source\Mortar\MortarPart.cpp">
       <Filter>Mortar</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Mortar\MortarSingleton.cpp">
+      <Filter>Mortar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">

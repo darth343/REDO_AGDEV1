@@ -1,6 +1,6 @@
 
 #include "Mesh.h"
-#include "GL\glew.h"
+#include "../../glew/include/GL/glew.h"
 #include "Vertex.h"
 
 Mesh::Mesh(const std::string &meshName)

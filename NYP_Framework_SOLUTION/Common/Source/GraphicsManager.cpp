@@ -1,5 +1,5 @@
 #include "GraphicsManager.h"
-#include "GL\glew.h"
+#include "../../glew/include/GL/glew.h"
 #include <vector>
 #include <iostream>
 #include <fstream>

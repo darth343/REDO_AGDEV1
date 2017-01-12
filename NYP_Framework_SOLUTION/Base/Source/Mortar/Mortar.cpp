@@ -19,7 +19,7 @@ CMortar::~CMortar()
 void CMortar::Init()
 {
 	SetCollider(true);
-	SetAABB(Vector3(12, 12, 12), Vector3(-12, -12, -12));
+	SetAABB(Vector3(8, 8, 8), Vector3(-8, -8, -8));
 	SetScale(Vector3(1, 1, 1));
 	SetChildren(true);
 	this->SetAABB(MeshBuilder::GetInstance()->GetMesh("MortarBody")->Max *2, MeshBuilder::GetInstance()->GetMesh("MortarBody")->Min *2);
@@ -84,8 +84,10 @@ void CMortar::Init()
 	isDead = false;
 	LRAngle = 0;
 	MiddleAngle = 0;
-
 	deathTimer = 0;
+	
+	SetHP(100);
+
 	EntityManager::GetInstance()->AddEntity(this, true);
 }
 

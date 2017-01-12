@@ -1,0 +1,34 @@
+﻿Build started 12/1/2017 8:53:46 PM.
+     1>Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Common\Common.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _VARIADIC_MAX=10 /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\GraphicsManager.cpp
+         GraphicsManager.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Release\Common.lib" /NOLOGO /LTCG Release\CameraBase.obj
+         Release\Collider.obj
+         Release\EntityBase.obj
+         Release\GraphicsManager.obj
+         Release\KeyboardController.obj
+         Release\LightBase.obj
+         Release\LoadOBJ.obj
+         Release\LoadTGA.obj
+         Release\MathUtility.obj
+         Release\MatrixStack.obj
+         Release\Mesh.obj
+         Release\MeshBuilder.obj
+         Release\MouseController.obj
+         Release\Mtx44.obj
+         Release\RenderHelper.obj
+         Release\SceneManager.obj
+         Release\ShaderProgram.obj
+         Release\timer.obj
+         Release\Utility.obj
+         Release\Vector2.obj
+         Release\Vector3.obj
+         Release\Win32Input.obj
+         Common.vcxproj -> C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Release\Common.lib
+     1>Done Building Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Common\Common.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.02

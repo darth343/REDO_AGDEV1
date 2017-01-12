@@ -22,7 +22,7 @@
 #include "SkyBox/SkyBoxEntity.h"
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
-#include "Mortar\Mortar.h"
+#include "Mortar\MortarSingleton.h"
 
 #include <iostream>
 using namespace std;
@@ -178,6 +178,18 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("MortarLeftHead")->textureID = LoadTGA("Image//Mortar.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("MortarRightHead", "OBJ//MortarRight.obj");
 	MeshBuilder::GetInstance()->GetMesh("MortarRightHead")->textureID = LoadTGA("Image//Mortar.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Wall", "OBJ//Wall.obj");
+	MeshBuilder::GetInstance()->GetMesh("Wall")->textureID = LoadTGA("Image//Wall.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("WallRed", "OBJ//Wall.obj");
+	MeshBuilder::GetInstance()->GetMesh("WallRed")->textureID = LoadTGA("Image//Wall_Red.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("WallGreen", "OBJ//Wall.obj");
+	MeshBuilder::GetInstance()->GetMesh("WallGreen")->textureID = LoadTGA("Image//Wall_Green.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("WallYellow", "OBJ//Wall.obj");
+	MeshBuilder::GetInstance()->GetMesh("WallYellow")->textureID = LoadTGA("Image//Wall_Yellow.tga");
+
+	// Gun
+	MeshBuilder::GetInstance()->GenerateOBJ("gun", "OBJ//gun.obj");
+	MeshBuilder::GetInstance()->GetMesh("gun")->textureID = LoadTGA("Image//gun.tga");
 
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10, 0.1f);
@@ -187,75 +199,32 @@ void SceneText::Init()
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
 
 	// Create entities into the scene
-	Create::Entity("reference", Vector3(0.0f, 10.0f, 0.0f)); // Reference
-	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
-
-	//for (int i = -3; i < 3; i++)
-	//{
-	//	for (int j = -3; j < 3; j++)
-	//	{
-	//		if (i >= -1 && i <= -1 || j >= -1 && j <= -1)
-	//			continue;
-	//		GenericEntity* aCube = Create::Entity("cube", Vector3(i * 100 + 50, 5.0f, j * 100 + 50), Vector3(5, 5, 5), true);
-	//		aCube->InitLOD("cube", "sphere", "cubeSG");
-	//		CSpatialPartition::GetInstance()->Add(aCube);
-	//	}
-	//}
-
-	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 10.0f, -20.0f), Vector3(10, 10, 10), true);
-	aCube->InitLOD("cube", "sphere", "cubeSG");
-	cout << aCube->GetMin() << endl;
-	cout << aCube->GetMax() << endl;
-	//aCube->SetScale(Vector3(100, 1, 1));
+	Create::Asset("reference", Vector3(0.0f, 10.0f, 0.0f)); // Reference
+	Create::Asset("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 	
-	EntityManager::GetInstance()->SetEntityHolder(aCube);
-
-	CSpatialPartition::GetInstance()->Remove(aCube);
-	CSpatialPartition::GetInstance()->Add(aCube);
-	// Add the pointer to this new entity to the Scene Graph
-	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
-	if (theNode == NULL)
+	for (int i = 0; i < 10; i++)
 	{
-		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
+		if (i == 4 || i == 5)
+			continue;
+		for (int j = 0; j < 2; j++)
+		{
+			GenericEntity* wall = Create::Entity("Wall", Vector3(-300 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);
+			wall->SetAABB(MeshBuilder::GetInstance()->GetMesh("Wall")->Max, MeshBuilder::GetInstance()->GetMesh("Wall")->Min);
+			CSpatialPartition::GetInstance()->Add(wall);
+
+			wall = Create::Entity("WallGreen", Vector3(-322 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);
+			wall->SetAABB(MeshBuilder::GetInstance()->GetMesh("Wall")->Max, MeshBuilder::GetInstance()->GetMesh("Wall")->Min);
+			CSpatialPartition::GetInstance()->Add(wall);
+
+			wall = Create::Entity("WallYellow", Vector3(-344 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);
+			wall->SetAABB(MeshBuilder::GetInstance()->GetMesh("Wall")->Max, MeshBuilder::GetInstance()->GetMesh("Wall")->Min);
+			CSpatialPartition::GetInstance()->Add(wall);
+
+			wall = Create::Entity("WallRed", Vector3(-366 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);
+			wall->SetAABB(MeshBuilder::GetInstance()->GetMesh("Wall")->Max, MeshBuilder::GetInstance()->GetMesh("Wall")->Min);
+			CSpatialPartition::GetInstance()->Add(wall);
+		}
 	}
-
-	GenericEntity* anotherCube = Create::Entity("cube", Vector3(-20.0f, 11.1f, -20.0f));
-	anotherCube->SetCollider(true);
-	anotherCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode* anotherNode = theNode->AddChild(anotherCube);
-	if (anotherNode == NULL)
-	{
-		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}
-	
-	//GenericEntity* baseCube = Create::Asset("cube", Vector3(0.0f, 10.0f, 0.0f));
-	//CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
-
-	//CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	//baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//baseMtx->SetSteps(-60, 60);
-	//baseNode->SetUpdateTransformation(baseMtx);
-
-	//GenericEntity* childCube = Create::Asset("cubeSG", Vector3(0.0f, 10.0f, 0.0f));
-	//CSceneNode* childNode = baseNode->AddChild(childCube);
-	//childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
-
-	//GenericEntity* grandchildCube = Create::Asset("cubeSG", Vector3(0.0f, 10.0f, 0.0f));
-	//CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	//grandchildNode->ApplyTranslate(0.0f, 0.0f, 1.0f);
-	//CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
-	//aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//aRotateMtx->SetSteps(-120, 60);
-	//grandchildNode->SetUpdateTransformation(aRotateMtx);
-	
-	// Create a CEnemy instance
-	//theEnemy = new CEnemy();
-	//theEnemy->Init();
-
-	/* = new CMortar();
-	mortar->Init();
-	mortar->SetPosition(Vector3(400, 5, 50));*/
-	SpawnMortars(1);
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 	//Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
@@ -270,7 +239,6 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
-	//theEnemy->SetTerrain(groundEntity);
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
@@ -283,32 +251,48 @@ void SceneText::Init()
 	}
 	textObj[0]->SetText("HELLO WORLD");
 	state = START;
+	wave = 1;
+	SpawnMortars(wave);
 }
 
 void SceneText::SpawnMortars(int count)
 {
-		MortarHandle.clear();
+		MortarHandler::GetInstance()->Mortars.clear();
+
 		CMortar* mortar;
 		mortar = new CMortar();
 		mortar->Init();
-		mortar->SetPosition(Vector3(-100, 1000, 0));
-		MortarHandle.push_back(mortar);
+		mortar->SetPosition(Vector3(0, 1000, 0));
+		MortarHandler::GetInstance()->Mortars.push_back(mortar);
 
-		for (int i = 0; i < count; i++)
+		if (count > 7)
 		{
-			float z = 200 + i * 100;
-			float x = -200 + i * 200;
+			count = 7;
+		}
+
+		for (int i = 1; i < count; i++)
+		{
+			float z = i * 100;
+			float x = i * 100;
+
+			if (i > 2)
+			{
+				float num = i - 1;
+				x = num * 150;
+				z = num * 100;
+				
+			}
 
 			CMortar* mortar;
 			mortar = new CMortar();
 			mortar->Init();
 			mortar->SetPosition(Vector3(x, 1000, z));
-			MortarHandle.push_back(mortar);
+			MortarHandler::GetInstance()->Mortars.push_back(mortar);
 
 			mortar = new CMortar();
 			mortar->Init();
 			mortar->SetPosition(Vector3(x, 1000, -z));
-			MortarHandle.push_back(mortar);
+			MortarHandler::GetInstance()->Mortars.push_back(mortar);
 		}
 }
 
@@ -318,20 +302,31 @@ void SceneText::Update(double dt)
 	{
 		bool transfer = false;
 
-		for (int i = 0; i < MortarHandle.size(); i++)
+		for (int i = 0; i < MortarHandler::GetInstance()->Mortars.size(); i++)
 		{
 			Vector3 position;
 
-			position = Vector3(MortarHandle[i]->GetPosition());
+			position = Vector3(MortarHandler::GetInstance()->Mortars[i]->GetPosition());
 			position.y -= dt * 500;
 			if (position.y < 5)
 			{
 				position.y = 5;
 				transfer = true;
 			}
-			MortarHandle[i]->SetPosition(Vector3(position.x, position.y, position.z));
+			MortarHandler::GetInstance()->Mortars[i]->SetPosition(Vector3(position.x, position.y, position.z));
 		}
-
+		if (KeyboardController::GetInstance()->IsKeyDown(' '))
+		{
+			for (int i = 0; i < MortarHandler::GetInstance()->Mortars.size(); i++)
+			{
+				Vector3 position;
+				position = Vector3(MortarHandler::GetInstance()->Mortars[i]->GetPosition());
+				MortarHandler::GetInstance()->Mortars[i]->SetPosition(Vector3(position.x, 5, position.z));
+			}
+			playerInfo->AttachCamera(&camera);
+			state = PLAYING;
+		}
+		
 		if (transfer == true)
 		{
 			playerInfo->AttachCamera(&camera);
@@ -347,6 +342,12 @@ void SceneText::Update(double dt)
 			if (delaytimer <= 0)
 				state = PLAYING;
 		}
+
+		if (KeyboardController::GetInstance()->IsKeyDown(' '))
+		{
+			playerInfo->AttachCamera(&camera);
+			state = PLAYING;
+		}
 	}
 	else if (state == PLAYING)
 	{
@@ -354,27 +355,15 @@ void SceneText::Update(double dt)
 		EntityManager::GetInstance()->Update(dt);
 		// Update the player position and other details based on keyboard and mouse inputs
 		playerInfo->Update(dt);
-		bool complete = false;
-		for (int i = 0; i < MortarHandle.size(); i++)
-		{
-			if (!MortarHandle[i])
-			{
-				complete = true;
-				cout << "DEAD ID: " << i << endl;
-			}
-			else
-			{
-				complete = false;
-				cout << "ALIVE ID: " << i << endl;
-			}
-		}
-		if (complete)
+		if (MortarHandler::GetInstance()->Mortars.size() == 0)
 		{
 			state = START;
+			playerInfo->DetachCamera();
 			GraphicsManager::GetInstance()->AttachCamera(&camera);
 			camera.SetCameraPos(Vector3(-800, 865, -6.5));
 			camera.SetCameraTarget(Vector3(0, 0, 0));
-			SpawnMortars(2);
+			camera.SetCameraUp(Vector3(0, 1, 0));
+			SpawnMortars(++wave);
 		}
 	}
 
@@ -480,6 +469,7 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
+	playerInfo->Render();
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;

@@ -4,6 +4,7 @@
 #include "Projectile/Laser.h"
 #include "SceneGraph\SceneGraph.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "Mortar\MortarSingleton.h"
 #include <iostream>
 using namespace std;
 
@@ -40,6 +41,14 @@ void EntityManager::Update(double _dt)
 				theEntityHolder = NULL;
 			}
 			// Delete if done
+			for (vector<CMortar*>::iterator mortarIT = MortarHandler::GetInstance()->Mortars.begin(); mortarIT != MortarHandler::GetInstance()->Mortars.end(); mortarIT++)
+			{
+				if ((*it)->GetPosition() == (*mortarIT)->GetPosition())
+				{
+					MortarHandler::GetInstance()->Mortars.erase(mortarIT);
+					break;
+				}
+			}
 			delete *it;
 			it = entityList.erase(it);
 		}
@@ -529,6 +538,7 @@ bool EntityManager::CheckForCollision(void)
 
 								if (!(NodeEntity->GetType() == "main") || ((NodeEntity->GetType() == "main") && thisEntity->IsDone()))
 								{
+									
 									// Remove from Scene Graph
 									if (CSceneGraph::GetInstance()->DeleteNode(node->GetEntity()) == true)
 									{

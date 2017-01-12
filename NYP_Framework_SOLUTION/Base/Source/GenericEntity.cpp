@@ -7,6 +7,7 @@
 GenericEntity::GenericEntity(Mesh* _modelMesh)
 	: modelMesh(_modelMesh)
 	, Body(NULL)
+	, hp(0)
 {
 	SetType("generic");
 }
@@ -18,6 +19,16 @@ GenericEntity::~GenericEntity()
 void GenericEntity::Update(double _dt)
 {
 	// Does nothing here, can inherit & override or create your own version of this class :D
+}
+
+float GenericEntity::GetHP()
+{
+	return hp;
+}
+
+void GenericEntity::SetHP(float health)
+{
+	hp = health;
 }
 
 Vector3 GenericEntity::GetScale()

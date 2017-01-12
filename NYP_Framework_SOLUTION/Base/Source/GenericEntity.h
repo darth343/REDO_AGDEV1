@@ -20,15 +20,16 @@ public:
 	virtual void Delete();
 
 	virtual Vector3 GetScale();
-
-	// Set the maxAABB and minAABB
 	void SetAABB(Vector3 maxAABB, Vector3 minAABB);
+	float GetHP();
+	void SetHP(float health);
 	Vector3 GetMin();
 	Vector3 GetMax();
 	CSceneNode* Body;
 
 private:
 	Mesh* modelMesh;
+	float hp;
 };
 
 namespace Create
