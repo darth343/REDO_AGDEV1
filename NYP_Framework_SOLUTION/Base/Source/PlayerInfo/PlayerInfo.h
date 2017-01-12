@@ -16,6 +16,13 @@ protected:
 	CPlayerInfo(void);
 
 public:
+	enum HITMARKER_TYPE
+	{
+		KILL,
+		CRIT,
+		NON_CRIT,
+		NONE,
+	};
 	static CPlayerInfo *GetInstance()
 	{
 		if (!s_instance)
@@ -108,12 +115,18 @@ public:
 	// Constrain the position within the borders
 	void Constrain(void);
 
+	// Set Hitmarker
+	void SetHitmarker(std::string hm_type, bool isKill = false);
+
+	void UpdateHitmarker(double dt);
+
 	// Handling Camera
 	void AttachCamera(FPSCamera* _cameraPtr);
 	void DetachCamera(void);
 
 	// Render
 	void Render();
+	void RenderUI();
 
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
@@ -140,6 +153,12 @@ private:
 
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
+
+	//hitmarker stuff
+	float HitmarkerCurrentTime;
+	float HitmarkerWaitTime;
+	float HitmarkerScale;
+	HITMARKER_TYPE hitmarker_type;
 
 	// Currently in crosshair
 	CGrid* theGrid;

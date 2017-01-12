@@ -186,6 +186,13 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("WallGreen")->textureID = LoadTGA("Image//Wall_Green.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("WallYellow", "OBJ//Wall.obj");
 	MeshBuilder::GetInstance()->GetMesh("WallYellow")->textureID = LoadTGA("Image//Wall_Yellow.tga");
+	MeshBuilder::GetInstance()->GenerateQuad("CRIT_HITMARKER", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("CRIT_HITMARKER")->textureID = LoadTGA("Image//Hitmarker_CRIT.tga");
+	MeshBuilder::GetInstance()->GenerateQuad("NONCRIT_HITMARKER", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("NONCRIT_HITMARKER")->textureID = LoadTGA("Image//Hitmarker_NONCRIT.tga");
+	MeshBuilder::GetInstance()->GenerateQuad("KILL_HITMARKER", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("KILL_HITMARKER")->textureID = LoadTGA("Image//Hitmarker_KILL.tga");
+
 
 	// Gun
 	MeshBuilder::GetInstance()->GenerateOBJ("gun", "OBJ//gun.obj");
@@ -477,6 +484,7 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	EntityManager::GetInstance()->RenderUI();
+	playerInfo->RenderUI();
 }
 
 void SceneText::Exit()

@@ -26,10 +26,10 @@ public:
 	Vector3 GetMin();
 	Vector3 GetMax();
 	CSceneNode* Body;
+	float hp;
 
 private:
 	Mesh* modelMesh;
-	float hp;
 };
 
 namespace Create

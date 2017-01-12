@@ -9,11 +9,34 @@ CSceneNode::CSceneNode(void)
 	: ID(-1)
 	, theEntity(NULL)
 	, theParent(NULL)
+	, hp(NULL)
 {
 }
 
 CSceneNode::~CSceneNode()
 {
+}
+
+void CSceneNode::SetHP(float* health)
+{
+	hp = health;
+}
+
+void CSceneNode::AddHP(float value)
+{
+	if (hp)
+	*hp += value;
+}
+
+void CSceneNode::MinusHP(float value)
+{
+	if (hp)
+		*hp -= value;
+}
+
+float CSceneNode::GetHP()
+{
+	return *hp;
 }
 
 // Release all memory for this node and its children

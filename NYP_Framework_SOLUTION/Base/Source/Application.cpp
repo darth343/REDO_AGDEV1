@@ -46,6 +46,7 @@ bool Application::IsKeyPressed(unsigned short key)
 
 Application::Application()
 {
+	m_soundEngine = createIrrKlangDevice();
 }
 
 Application::~Application()

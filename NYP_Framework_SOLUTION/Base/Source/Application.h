@@ -2,7 +2,9 @@
 #define APPLICATION_H
 
 #include "timer.h"
+#include <irrKlang.h>
 
+using namespace irrklang;
 struct GLFWwindow;
 
 class Application
@@ -25,7 +27,8 @@ public:
 
 	int GetWindowHeight();
 	int GetWindowWidth();
-	
+	ISoundEngine* m_soundEngine;
+
 private:
 	Application();
 	~Application();

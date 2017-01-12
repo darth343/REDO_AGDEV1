@@ -9,6 +9,7 @@
 #include "MyMath.h"
 #include "../SpatialPartition/SpatialPartition.h"
 #include "../SceneGraph/SceneGraph.h"
+#include "../Application.h"
 
 #include <iostream>
 using namespace std;
@@ -19,6 +20,7 @@ CGrenade::CGrenade(void)
 	, m_fElapsedTime(0.0f)
 	, m_pTerrain(NULL)
 {
+	SetType("grenade");
 }
 
 CGrenade::CGrenade(Mesh* _modelMesh)
@@ -27,6 +29,8 @@ CGrenade::CGrenade(Mesh* _modelMesh)
 	, m_fElapsedTime(0.0f)
 	, m_pTerrain(NULL)
 {
+	SetType("grenade");
+
 }
 
 CGrenade::~CGrenade(void)
@@ -48,17 +52,27 @@ void CGrenade::Update(double dt)
 	{
 		SetStatus(false);
 		SetIsDone(true);	// This method informs EntityManager to remove this instance
-
+		Application::GetInstance().m_soundEngine->play2D("Music\\Explosion.mp3");
 		// Check the SpatialPartition to destroy nearby objects
 		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position);
 		for (int i = 0; i < ExportList.size(); ++i)
 		{
-			ExportList[i]->SetIsDone(true);
-			if (!ExportList[i]->HasChildren())
-			{			// Remove from Scene Graph
+			if (ExportList[i]->GetType() == "base")
+			{
+				ExportList[i]->SetIsDone(true);
 				if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
 				{
 					cout << "*** Grenade Victim Entity removed ***" << endl;
+				}
+			}
+			else if (ExportList[i]->GetType() != "grenade" && ExportList[i]->GetType() != "bullet" && ExportList[i]->GetType() != "ebullet")
+			{
+				GenericEntity* ge = dynamic_cast<GenericEntity*>(ExportList[i]);
+				if (ge->Body)
+				{
+					ge->Body->MinusHP(95.f);
+					if (ge->Body->GetHP() <= 0)
+						ge->SetIsDone(true);
 				}
 			}
 

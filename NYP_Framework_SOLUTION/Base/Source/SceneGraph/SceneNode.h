@@ -60,6 +60,10 @@ public:
 	// PrintSelf for debug purposes
 	void PrintSelf(const int numTabs = 0);
 
+	void SetHP(float* health);
+	void MinusHP(float value);
+	void AddHP(float value);
+	float GetHP();
 	//Vector3 GetWorldPosition(Vector3& position = Vector3(0, 0, 0));
 	Vector3 GetWorldPosition(Vector3& position = Vector3(0, 0, 0), Vector3& scale = Vector3(1, 1, 1));
 
@@ -67,6 +71,6 @@ protected:
 	int			ID;
 	EntityBase* theEntity;
 	CSceneNode* theParent;
-
+	float* hp;
 	vector<CSceneNode*> theChildren;
 };

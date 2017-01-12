@@ -1,8 +1,10 @@
-﻿Build started 12/1/2017 8:53:46 PM.
+﻿Build started 13/1/2017 12:26:07 AM.
      1>Project "C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _VARIADIC_MAX=10 /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\GraphicsManager.cpp
-         GraphicsManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _VARIADIC_MAX=10 /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\EntityBase.cpp
+         EntityBase.cpp
+     1>Source\EntityBase.cpp(66): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Source\EntityBase.cpp(71): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\Arun\Documents\2016 S2\AGDEV\Assignment1_REDO\GitHub\NYP_Framework_SOLUTION\Release\Common.lib" /NOLOGO /LTCG Release\CameraBase.obj
          Release\Collider.obj
@@ -31,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.02
+Time Elapsed 00:00:01.72

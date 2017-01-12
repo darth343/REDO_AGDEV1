@@ -7,6 +7,7 @@
 #include "../WeaponInfo/Pistol.h"
 #include "../WeaponInfo/LaserBlaster.h"
 #include "../WeaponInfo/GrenadeThrow.h"
+#include "../Application.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -28,6 +29,10 @@ CPlayerInfo::CPlayerInfo(void)
 	, m_pTerrain(NULL)
 	, primaryWeapon(NULL)
 	, secondaryWeapon(NULL)
+	, hitmarker_type(NONE)
+	, HitmarkerScale(100)
+	, HitmarkerWaitTime(0.15f)
+	, HitmarkerCurrentTime(0.f)
 {
 }
 
@@ -331,11 +336,56 @@ void CPlayerInfo::UpdateFreeFall(double dt, Vector3& nextPosition)
 	}
 }
 
+void CPlayerInfo::SetHitmarker(string hm_type, bool isKill)
+{
+	if (hm_type == "CRIT")
+	{
+		hitmarker_type = CRIT;
+		Application::GetInstance().m_soundEngine->play2D("Music\\HeadShot.mp3");
+	}
+	else if (hm_type == "NON_CRIT")
+	{
+		hitmarker_type = NON_CRIT;
+		Application::GetInstance().m_soundEngine->play2D("Music\\BodyShot.mp3");
+	}
+
+	if (isKill)
+	{
+		hitmarker_type = KILL;
+		Application::GetInstance().m_soundEngine->play2D("Music\\KillSound.mp3");
+		if (hm_type == "CRIT")
+			primaryWeapon->SetMagRound(primaryWeapon->GetMaxMagRound());
+	}
+	HitmarkerCurrentTime = 0.f;
+	HitmarkerScale = 200.f;
+}
+
 
 //void CPlayerInfo::UpdateAim()
 //{
 //	CSpatialPartition::GetInstance();
 //}
+
+void CPlayerInfo::UpdateHitmarker(double dt)
+{
+	if (HitmarkerCurrentTime > HitmarkerWaitTime)
+	{
+		hitmarker_type = NONE;
+		HitmarkerScale = 100.f;
+	}
+	else
+	{
+		HitmarkerCurrentTime += dt;
+		if (hitmarker_type != NONE)
+		{
+			HitmarkerScale += dt * 1600;
+			if (HitmarkerScale > 400)
+			{
+				HitmarkerScale = 400.f;
+			}
+		}
+	}
+}
 
 void CPlayerInfo::CameraUpdate(double dt)
 {
@@ -627,6 +677,8 @@ void CPlayerInfo::Update(double dt)
 	// Update the weapons
 	WeaponUpdate(dt);
 
+	UpdateHitmarker(dt);
+
 	// If a camera is attached to this playerInfo class, then update it
 	if (attachedCamera)
 	{
@@ -676,7 +728,39 @@ void CPlayerInfo::Render()
 	modelStack.Rotate(-85 + Math::RadianToDegree(atan2(view.x, view.z)), 0, 1, 0);
 	modelStack.Rotate(90.f - Math::RadianToDegree(acos(view.Dot(Vector3(0, 1, 0)))), 0, 0, 1);
 	modelStack.Translate(1.6f, -0.6f, 0.6f);
-
 	RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("gun"));
+	modelStack.PopMatrix();
+}
+
+void CPlayerInfo::RenderUI()
+{
+
+	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
+	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
+
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+
+	modelStack.Translate(0, 0, 0);
+	switch (hitmarker_type)
+	{
+	case KILL:
+		modelStack.Scale(HitmarkerScale, HitmarkerScale, HitmarkerScale);
+		RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("KILL_HITMARKER"));
+		break;
+	case CRIT:
+		modelStack.Scale(HitmarkerScale, HitmarkerScale, HitmarkerScale);
+		RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("CRIT_HITMARKER"));
+		break;
+	case NON_CRIT:
+		modelStack.Scale(HitmarkerScale, HitmarkerScale, HitmarkerScale);
+		RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("NONCRIT_HITMARKER"));
+		break;
+	case NONE:
+		modelStack.Scale(50, 50, 50);
+		RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("crosshair"));
+		break;
+	}
 	modelStack.PopMatrix();
 }

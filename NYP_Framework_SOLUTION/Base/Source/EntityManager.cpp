@@ -406,20 +406,30 @@ CSceneNode* EntityManager::CheckChildrenCollision(EntityBase* thisEntity, Entity
 
 		GenericEntity* Entity = dynamic_cast<GenericEntity*>(thisEntity);
 
-		thisMinAABB.x = Entity->GetMinAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
-		thisMinAABB.y = Entity->GetMinAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
-		thisMinAABB.z = Entity->GetMinAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
-		thisMaxAABB.x = Entity->GetMaxAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
-		thisMaxAABB.y = Entity->GetMaxAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
-		thisMaxAABB.z = Entity->GetMaxAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
+		if (Entity->Body->GetParent()->GetEntity())
+		{
+			thisMinAABB.x = Entity->GetMinAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
+			thisMinAABB.y = Entity->GetMinAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
+			thisMinAABB.z = Entity->GetMinAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
+			thisMaxAABB.x = Entity->GetMaxAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
+			thisMaxAABB.y = Entity->GetMaxAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
+			thisMaxAABB.z = Entity->GetMaxAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
+		}
+		else
+		{
+			GenericEntity* MainEntity = dynamic_cast<GenericEntity*>(Entity->Body->GetEntity());
+			thisMinAABB.x = MainEntity->GetMinAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
+			thisMinAABB.y = MainEntity->GetMinAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
+			thisMinAABB.z = MainEntity->GetMinAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
+			thisMaxAABB.x = MainEntity->GetMaxAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
+			thisMaxAABB.y = MainEntity->GetMaxAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
+			thisMaxAABB.z = MainEntity->GetMaxAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
+		}
 
 		if (CheckAABBCollision(thisMaxAABB, thisMinAABB, thatEntity))
 		{
-			Entity = dynamic_cast<GenericEntity*>(thisEntity);
 			return Entity->Body;
 		}
-
-		Entity = dynamic_cast<GenericEntity*>(thisEntity);
 		vector<CSceneNode*> children = Entity->Body->GetListOfChildren();
 
 		std::vector<CSceneNode*>::iterator it;
@@ -532,13 +542,33 @@ bool EntityManager::CheckForCollision(void)
 								GenericEntity* NodeEntity = dynamic_cast<GenericEntity*>(node->GetEntity());
 
 								if (NodeEntity->GetType() == "main")
-									thisEntity->SetIsDone(true);
+								{
+									Entity->Body->MinusHP(20.f);
+									if (Entity->Body->GetHP() <= 0)
+									{
+										CPlayerInfo::GetInstance()->SetHitmarker("NON_CRIT", true);
+										Entity->SetIsDone(true);
+									}
+									else
+									{
+										CPlayerInfo::GetInstance()->SetHitmarker("NON_CRIT");
+									}
+								}
 
 								thatEntity->SetIsDone(true);
 
-								if (!(NodeEntity->GetType() == "main") || ((NodeEntity->GetType() == "main") && thisEntity->IsDone()))
+								if (!(NodeEntity->GetType() == "main"))
 								{
-									
+									NodeEntity->Body->MinusHP(30.f);
+									if (NodeEntity->Body->GetHP() <= 0)
+									{
+										CPlayerInfo::GetInstance()->SetHitmarker("CRIT", true);
+										Entity->SetIsDone(true);
+									}
+									else
+									{
+										CPlayerInfo::GetInstance()->SetHitmarker("CRIT");
+									}
 									// Remove from Scene Graph
 									if (CSceneGraph::GetInstance()->DeleteNode(node->GetEntity()) == true)
 									{
@@ -550,6 +580,7 @@ bool EntityManager::CheckForCollision(void)
 										cout << "*** That Entity removed ***" << endl;
 									}
 								}
+
 								NodeEntity->Body = NULL;
 							}
 						}

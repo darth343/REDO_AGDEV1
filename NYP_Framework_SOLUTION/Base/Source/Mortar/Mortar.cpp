@@ -54,10 +54,16 @@ void CMortar::Init()
 	HeadRightPart->SetAABB(MeshBuilder::GetInstance()->GetMesh("MortarRightHead")->Max, MeshBuilder::GetInstance()->GetMesh("MortarRightHead")->Min);
 	HeadRightPart->Init();
 
-	Body = CSceneGraph::GetInstance()->AddNode(BodyPart);
+	Body				= CSceneGraph::GetInstance()->AddNode(BodyPart);
 	HeadMidPart->Body   = Body->AddChild(HeadMidPart);
 	HeadLeftPart->Body  = HeadMidPart->Body->AddChild(HeadLeftPart);
 	HeadRightPart->Body = HeadMidPart->Body->AddChild(HeadRightPart);
+
+	Body->SetHP(&hp);
+	HeadMidPart	->Body->SetHP(&hp);
+	HeadLeftPart->Body->SetHP(&hp);
+	HeadRightPart->Body->SetHP(&hp);
+
 
 	LeftGun.Init();
 	LeftGun.SetFiringRate(30);
@@ -140,11 +146,12 @@ void CMortar::Update(double dt)
 		Body->Reset();
 		Body->SetScale(scale.x, scale.y, scale.z);
 		Body->ApplyTranslate(position.x * (1.f / scale.x), position.y * (1.f / scale.y), position.z * (1.f / scale.z));
+		Body->ApplyRotate(-MiddleAngle, 0, 1, 0);
 		if (HeadMidPart->Body)
 		{
 			HeadMidPart->Body->Reset();
 			HeadMidPart->Body->ApplyTranslate(HeadMidPart->GetPosition().x, HeadMidPart->GetPosition().y, HeadMidPart->GetPosition().z);
-			HeadMidPart->Body->ApplyRotate(MiddleAngle, 0, 1, 0);
+			HeadMidPart->Body->ApplyRotate(MiddleAngle*2, 0, 1, 0);
 			if (HeadLeftPart->Body)
 			{
 				HeadLeftPart->Body->Reset();
