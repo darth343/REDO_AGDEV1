@@ -432,19 +432,19 @@ void CSceneNode::PrintSelf(const int numTabs)
 	}
 }
 
-Vector3 CSceneNode::GetWorldPosition(Vector3& position)
+Vector3 CSceneNode::GetWorldPosition(Vector3& position, Vector3 &scale)
 {
-	Vector3 temp;
+	Vector3 tempPosition;
 	if (theParent != NULL)
 	{
 		theParent->GetWorldPosition(position);
-		GetTranslate(temp.x, temp.y, temp.z);
-		position += temp;
+		GetTranslate(tempPosition.x, tempPosition.y, tempPosition.z);
+		position += tempPosition;
 	}
 	else
 	{
-		GetTranslate(temp.x, temp.y, temp.z);
-		position += temp;
+		GetTranslate(tempPosition.x, tempPosition.y, tempPosition.z);
+		position += tempPosition;
 	}
 	return position;
 }

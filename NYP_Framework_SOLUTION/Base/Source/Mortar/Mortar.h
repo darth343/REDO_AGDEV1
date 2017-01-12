@@ -5,6 +5,7 @@
 #include "../SceneGraph/SceneNode.h"
 
 #include "MortarPart.h"
+#include "../WeaponInfo/Pistol.h"
 
 class Mesh;
 
@@ -20,6 +21,22 @@ protected:
 	CMortarPart* HeadLeftPart;
 	CMortarPart* HeadRightPart;
 
+	CPistol LeftGun;
+	CPistol RightGun;
+
+	bool LeftCocked;
+	bool RightCocked;
+	float LeftDisplacement;
+	float RightDisplacement;
+	float LeftTimer;
+	float RightTimer;
+
+	bool isDead;
+
+	float MiddleAngle;
+	float LRAngle;
+	float deathTimer;
+
 public:
 
 	enum MortarState
@@ -32,6 +49,10 @@ public:
 
 	CMortar(void);
 	virtual ~CMortar();
+
+	virtual void SetPosition(const Vector3& position);
+	virtual void SetIsDone(const bool done);
+	virtual bool IsDone();
 
 	void Init(void);
 	// Reset  instance to default

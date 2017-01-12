@@ -221,5 +221,8 @@
     <ClInclude Include="Source\Mortar\MortarPart.h">
       <Filter>Mortar</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Mortar\MortarSingleton.h">
+      <Filter>Mortar</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

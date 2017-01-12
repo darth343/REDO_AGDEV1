@@ -13,6 +13,7 @@ CProjectile::CProjectile(void)
 	, m_fSpeed(10.0f)
 	, theSource(NULL)
 {
+	SetType("bullet");
 }
 
 CProjectile::CProjectile(Mesh* _modelMesh)
@@ -23,6 +24,7 @@ CProjectile::CProjectile(Mesh* _modelMesh)
 	, m_fSpeed(10.0f)
 	, theSource(NULL)
 {
+	SetType("bullet");
 }
 
 CProjectile::~CProjectile(void)
@@ -118,9 +120,17 @@ void CProjectile::Update(double dt)
 	}
 
 	// Update Position
-	position.Set(	position.x + (float)(theDirection.x * dt * m_fSpeed),
-					position.y + (float)(theDirection.y * dt * m_fSpeed),
-					position.z + (float)(theDirection.z * dt * m_fSpeed));
+	position.Set(position.x + (float)(theDirection.x * dt * m_fSpeed),
+		position.y + (float)(theDirection.y * dt * m_fSpeed),
+		position.z + (float)(theDirection.z * dt * m_fSpeed));
+
+	if (position.x > 500 ||
+		position.x < -500 ||
+		position.z > 500 ||
+		position.z < -500 ||
+		position.y > 500 ||
+		position.y < -10)
+		SetIsDone(true);
 }
 
 Vector3 CProjectile::GetMin()
@@ -176,7 +186,7 @@ CProjectile* Create::Projectile(const std::string& _meshName,
 	result->SetCollider(true);
 	result->SetSource(_source);
 	result->SetAABB(MeshBuilder::GetInstance()->GetMesh(_meshName)->Max, MeshBuilder::GetInstance()->GetMesh(_meshName)->Min);
-	result->SetScale(Vector3(0.2, 0.2, 0.2));
+	result->SetScale(Vector3(1, 1, 1));
 	EntityManager::GetInstance()->AddEntity(result);
 
 	return result;

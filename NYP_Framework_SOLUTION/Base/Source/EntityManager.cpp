@@ -4,7 +4,6 @@
 #include "Projectile/Laser.h"
 #include "SceneGraph\SceneGraph.h"
 #include "PlayerInfo\PlayerInfo.h"
-
 #include <iostream>
 using namespace std;
 
@@ -397,6 +396,7 @@ CSceneNode* EntityManager::CheckChildrenCollision(EntityBase* thisEntity, Entity
 		Vector3 thisMaxAABB;
 
 		GenericEntity* Entity = dynamic_cast<GenericEntity*>(thisEntity);
+
 		thisMinAABB.x = Entity->GetMinAABB().x * Entity->GetScale().x + Entity->Body->GetWorldPosition().x;
 		thisMinAABB.y = Entity->GetMinAABB().y * Entity->GetScale().y + Entity->Body->GetWorldPosition().y;
 		thisMinAABB.z = Entity->GetMinAABB().z * Entity->GetScale().z + Entity->Body->GetWorldPosition().z;
@@ -437,6 +437,8 @@ bool EntityManager::CheckForCollision(void)
 	for (colliderThis = entityList.begin(); colliderThis != colliderThisEnd; ++colliderThis)
 	{
 		// Check if this entity is a CLaser type
+		if ((*colliderThis)->IsDone())
+			continue;
 		if ((*colliderThis)->GetIsLaser())
 		{
 			// Dynamic cast it to a CLaser class
@@ -494,7 +496,7 @@ bool EntityManager::CheckForCollision(void)
 			int counter = 0;
 			for (colliderThat = entityList.begin(); colliderThat != colliderThatEnd; ++colliderThat)
 			{
-				if (colliderThat == colliderThis)
+				if (colliderThat == colliderThis || (*colliderThat)->IsDone())
 					continue;
 
 				if ((*colliderThat)->HasCollider())
@@ -505,23 +507,38 @@ bool EntityManager::CheckForCollision(void)
 						if (thisEntity->HasChildren())
 						{
 							GenericEntity* Entity = dynamic_cast<GenericEntity*>(thisEntity);
+							if (Entity->IsDone())
+								continue;
+
+							if (Entity->GetType() == "main" || Entity->GetType().find("Mortar") != std::string::npos)
+							{
+								if (thatEntity->GetType() == "ebullet")
+									continue;
+							}
+
 							CSceneNode* node = CheckChildrenCollision(thisEntity, thatEntity);
+
 							if (node)
 							{
 								GenericEntity* NodeEntity = dynamic_cast<GenericEntity*>(node->GetEntity());
+
 								if (NodeEntity->GetType() == "main")
 									thisEntity->SetIsDone(true);
+
 								thatEntity->SetIsDone(true);
 
-								// Remove from Scene Graph
-								if (CSceneGraph::GetInstance()->DeleteNode(node->GetEntity()) == true)
+								if (!(NodeEntity->GetType() == "main") || ((NodeEntity->GetType() == "main") && thisEntity->IsDone()))
 								{
-									cout << "*** This Entity removed ***" << endl;
-								}
-								// Remove from Scene Graph
-								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
-								{
-									cout << "*** That Entity removed ***" << endl;
+									// Remove from Scene Graph
+									if (CSceneGraph::GetInstance()->DeleteNode(node->GetEntity()) == true)
+									{
+										cout << "*** This Entity removed ***" << endl;
+									}
+									// Remove from Scene Graph
+									if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
+									{
+										cout << "*** That Entity removed ***" << endl;
+									}
 								}
 								NodeEntity->Body = NULL;
 							}

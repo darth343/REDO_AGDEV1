@@ -6,9 +6,9 @@
 
 GenericEntity::GenericEntity(Mesh* _modelMesh)
 	: modelMesh(_modelMesh)
-	, type("generic")
 	, Body(NULL)
 {
+	SetType("generic");
 }
 
 GenericEntity::~GenericEntity()
@@ -20,15 +20,27 @@ void GenericEntity::Update(double _dt)
 	// Does nothing here, can inherit & override or create your own version of this class :D
 }
 
-void GenericEntity::SetType(std::string v_type)
+Vector3 GenericEntity::GetScale()
 {
-	type = v_type;
+	static Vector3 theScale = Vector3(1, 1, 1);
+
+	if (HasChildren() && Body)
+	{
+		if (Body->GetParent()->GetEntity())
+		{
+			theScale.x *= EntityBase::GetScale().x;
+			theScale.y *= EntityBase::GetScale().y;
+			theScale.z *= EntityBase::GetScale().z;
+		}
+		else
+		{
+			theScale = EntityBase::GetScale();
+			return scale;
+		}
+	}
+	return scale;
 }
 
-std::string GenericEntity::GetType()
-{
-	return type;
-}
 
 void GenericEntity::Render()
 {
@@ -69,6 +81,14 @@ void GenericEntity::SetAABB(Vector3 maxAABB, Vector3 minAABB)
 {
 	this->maxAABB = maxAABB;
 	this->minAABB = minAABB;
+}
+
+void GenericEntity::Delete()
+{
+	if (CSceneGraph::GetInstance()->DeleteNode(Body->GetEntity()) == true)
+	{
+		cout << "*** Entity Destroyed ***" << endl;
+	}
 }
 
 GenericEntity* Create::Entity(	const std::string& _meshName, 

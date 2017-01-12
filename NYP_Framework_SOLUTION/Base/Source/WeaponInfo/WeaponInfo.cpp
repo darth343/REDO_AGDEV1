@@ -105,6 +105,12 @@ bool CWeaponInfo::GetCanFire(void) const
 	return bFire;
 }
 
+void CWeaponInfo::SetElapsedTime(const int ElapsedTime)
+{
+	bFire = false;
+	this->elapsedTime = ElapsedTime;
+}
+
 // Initialise this instance to default values
 void CWeaponInfo::Init(void)
 {
@@ -150,11 +156,13 @@ void CWeaponInfo::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _sour
 															position, 
 															(target - position).Normalized(), 
 															10.0f, 
-															20.0f,
+															80.0f,
 															_source);
 			aProjectile->SetCollider(true);
 			aProjectile->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 			bFire = false;
+			if (_source == NULL)
+				aProjectile->SetType("ebullet");
 			magRounds--;
 		}
 	}

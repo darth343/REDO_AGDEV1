@@ -75,6 +75,16 @@ bool EntityBase::HasChildren()
 	return m_bChildren;
 }
 
+void EntityBase::SetType(std::string v_type)
+{
+	type = v_type;
+}
+
+std::string EntityBase::GetType()
+{
+	return type;
+}
+
 void EntityBase::SetChildren(bool m_Children)
 {
 	m_bChildren = m_Children;

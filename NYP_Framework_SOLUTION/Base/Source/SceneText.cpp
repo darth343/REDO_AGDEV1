@@ -117,11 +117,11 @@ void SceneText::Init()
 	// Create the playerinfo instance, which manages all information about the player
 	playerInfo = CPlayerInfo::GetInstance();
 	playerInfo->Init();
+	playerInfo->SetPos(Vector3(-350, 8, 0));
 
 	// Create and attach the camera to the scene
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp());
-	playerInfo->AttachCamera(&camera);
+	camera.Init(Vector3(-800, 865, -6.5), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 
 	// Load all the meshes
@@ -190,18 +190,17 @@ void SceneText::Init()
 	Create::Entity("reference", Vector3(0.0f, 10.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	for (int i = -3; i < 3; i++)
-	{
-		for (int j = -3; j < 3; j++)
-		{
-			if (i >= -1 && i <= -1 || j >= -1 && j <= -1)
-				continue;
-			GenericEntity* aCube = Create::Entity("cube", Vector3(i * 100 + 50, 5.0f, j * 100 + 50), Vector3(5, 5, 5), true);
-			aCube->InitLOD("cube", "sphere", "cubeSG");
-			CSpatialPartition::GetInstance()->Remove(aCube);
-			CSpatialPartition::GetInstance()->Add(aCube);
-		}
-	}
+	//for (int i = -3; i < 3; i++)
+	//{
+	//	for (int j = -3; j < 3; j++)
+	//	{
+	//		if (i >= -1 && i <= -1 || j >= -1 && j <= -1)
+	//			continue;
+	//		GenericEntity* aCube = Create::Entity("cube", Vector3(i * 100 + 50, 5.0f, j * 100 + 50), Vector3(5, 5, 5), true);
+	//		aCube->InitLOD("cube", "sphere", "cubeSG");
+	//		CSpatialPartition::GetInstance()->Add(aCube);
+	//	}
+	//}
 
 	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 10.0f, -20.0f), Vector3(10, 10, 10), true);
 	aCube->InitLOD("cube", "sphere", "cubeSG");
@@ -253,13 +252,10 @@ void SceneText::Init()
 	//theEnemy = new CEnemy();
 	//theEnemy->Init();
 
-	CMortar* mortar;/* = new CMortar();
+	/* = new CMortar();
 	mortar->Init();
 	mortar->SetPosition(Vector3(400, 5, 50));*/
-
-	mortar = new CMortar();
-	mortar->Init();
-	mortar->SetPosition(Vector3(-40, 5, 50));
+	SpawnMortars(1);
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 	//Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
@@ -286,12 +282,101 @@ void SceneText::Init()
 		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
 	}
 	textObj[0]->SetText("HELLO WORLD");
+	state = START;
+}
+
+void SceneText::SpawnMortars(int count)
+{
+		MortarHandle.clear();
+		CMortar* mortar;
+		mortar = new CMortar();
+		mortar->Init();
+		mortar->SetPosition(Vector3(-100, 1000, 0));
+		MortarHandle.push_back(mortar);
+
+		for (int i = 0; i < count; i++)
+		{
+			float z = 200 + i * 100;
+			float x = -200 + i * 200;
+
+			CMortar* mortar;
+			mortar = new CMortar();
+			mortar->Init();
+			mortar->SetPosition(Vector3(x, 1000, z));
+			MortarHandle.push_back(mortar);
+
+			mortar = new CMortar();
+			mortar->Init();
+			mortar->SetPosition(Vector3(x, 1000, -z));
+			MortarHandle.push_back(mortar);
+		}
 }
 
 void SceneText::Update(double dt)
 {
-	// Update our entities
-	EntityManager::GetInstance()->Update(dt);
+	if (state == START)
+	{
+		bool transfer = false;
+
+		for (int i = 0; i < MortarHandle.size(); i++)
+		{
+			Vector3 position;
+
+			position = Vector3(MortarHandle[i]->GetPosition());
+			position.y -= dt * 500;
+			if (position.y < 5)
+			{
+				position.y = 5;
+				transfer = true;
+			}
+			MortarHandle[i]->SetPosition(Vector3(position.x, position.y, position.z));
+		}
+
+		if (transfer == true)
+		{
+			playerInfo->AttachCamera(&camera);
+			state = DELAY;
+			delaytimer = 3;
+		}
+	}
+	else if (state == DELAY)
+	{
+		if (delaytimer > 0)
+		{
+			delaytimer -= dt;
+			if (delaytimer <= 0)
+				state = PLAYING;
+		}
+	}
+	else if (state == PLAYING)
+	{
+		// Update our entities
+		EntityManager::GetInstance()->Update(dt);
+		// Update the player position and other details based on keyboard and mouse inputs
+		playerInfo->Update(dt);
+		bool complete = false;
+		for (int i = 0; i < MortarHandle.size(); i++)
+		{
+			if (!MortarHandle[i])
+			{
+				complete = true;
+				cout << "DEAD ID: " << i << endl;
+			}
+			else
+			{
+				complete = false;
+				cout << "ALIVE ID: " << i << endl;
+			}
+		}
+		if (complete)
+		{
+			state = START;
+			GraphicsManager::GetInstance()->AttachCamera(&camera);
+			camera.SetCameraPos(Vector3(-800, 865, -6.5));
+			camera.SetCameraTarget(Vector3(0, 0, 0));
+			SpawnMortars(2);
+		}
+	}
 
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if(KeyboardController::GetInstance()->IsKeyDown('1'))
@@ -366,9 +451,6 @@ void SceneText::Update(double dt)
 		cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << endl;
 	}
 	// <THERE>
-
-	// Update the player position and other details based on keyboard and mouse inputs
-	playerInfo->Update(dt);
 
 	//camera.Update(dt); // Can put the camera into an entity rather than here (Then we don't have to write this)
 

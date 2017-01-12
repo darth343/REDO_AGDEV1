@@ -17,17 +17,16 @@ public:
 
 	virtual void Update(double _dt);
 	virtual void Render();
+	virtual void Delete();
+
+	virtual Vector3 GetScale();
 
 	// Set the maxAABB and minAABB
 	void SetAABB(Vector3 maxAABB, Vector3 minAABB);
-	void SetType(std::string v_type);
-	std::string GetType();
 	Vector3 GetMin();
 	Vector3 GetMax();
 	CSceneNode* Body;
 
-protected:
-	std::string type;
 private:
 	Mesh* modelMesh;
 };

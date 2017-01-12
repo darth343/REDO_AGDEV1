@@ -53,6 +53,7 @@
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\Mortar\Mortar.h" />
     <ClInclude Include="Source\Mortar\MortarPart.h" />
+    <ClInclude Include="Source\Mortar\MortarSingleton.h" />
     <ClInclude Include="Source\OBJMesh.h" />
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h" />
     <ClInclude Include="Source\Projectile\Grenade.h" />

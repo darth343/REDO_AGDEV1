@@ -35,6 +35,8 @@ public:
 	// The max total number of rounds currently carried by this player
 	virtual void SetMaxTotalRound(const int maxTotalRounds);
 
+	virtual void SetElapsedTime(const int ElapsedTime);
+
 	// Get the number of ammunition in the magazine for this player
 	virtual int GetMagRound(void) const;
 	// Get the maximum number of ammunition in the magazine for this weapon

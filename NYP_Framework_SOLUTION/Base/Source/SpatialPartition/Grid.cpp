@@ -119,7 +119,7 @@ void CGrid::Render(void)
 	{
 		if (ListOfObjects.size() > 0)
 		{
-			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			if (ListOfObjects.size() == 1)
 				RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("GRIDMESH_GREEN"));
 			if (ListOfObjects.size() == 2)

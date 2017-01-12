@@ -10,7 +10,7 @@
 #include "MatrixStack.h"
 #include "GenericEntity.h"
 #include "SceneGraph/UpdateTransformation.h"
-#include "Enemy\Enemy.h"
+#include "Mortar\Mortar.h"
 
 class ShaderProgram;
 class SceneManager;
@@ -26,7 +26,13 @@ public:
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
-
+	void SpawnMortars(int count = 1);
+	enum SCENESTATE
+	{
+		START,
+		DELAY,
+		PLAYING,
+	};
 private:
 	SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager
 
@@ -35,10 +41,10 @@ private:
 	GroundEntity* groundEntity;
 	FPSCamera camera;
 	TextEntity* textObj[3];
+	SCENESTATE state;
 	Light* lights[2];
-
-	CEnemy* theEnemy;
-
+	vector<CMortar*> MortarHandle;
+	float delaytimer;
 	static SceneText* sInstance; // The pointer to the object that gets registered
 };
 
