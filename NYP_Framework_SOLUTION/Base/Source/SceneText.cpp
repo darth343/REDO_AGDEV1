@@ -202,6 +202,102 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateOBJ("gun", "OBJ//gun.obj");
 	MeshBuilder::GetInstance()->GetMesh("gun")->textureID = LoadTGA("Image//gun.tga");
 
+	// Cargo
+	MeshBuilder::GetInstance()->GenerateOBJ("cargo", "OBJ//cargo.obj");
+	MeshBuilder::GetInstance()->GetMesh("cargo")->textureID = LoadTGA("Image//cargo.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("cargo2", "OBJ//cargo2.obj");
+	MeshBuilder::GetInstance()->GetMesh("cargo2")->textureID = LoadTGA("Image//cargo.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("cargo3", "OBJ//cargo3.obj");
+	MeshBuilder::GetInstance()->GetMesh("cargo3")->textureID = LoadTGA("Image//cargo.tga");
+
+	// Jeep
+	MeshBuilder::GetInstance()->GenerateOBJ("jeep", "OBJ//jeep.obj");
+	MeshBuilder::GetInstance()->GetMesh("jeep")->textureID = LoadTGA("Image//jeep.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("jeep2", "OBJ//jeep2.obj");
+	MeshBuilder::GetInstance()->GetMesh("jeep2")->textureID = LoadTGA("Image//jeep.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("jeep3", "OBJ//jeep3.obj");
+	MeshBuilder::GetInstance()->GetMesh("jeep3")->textureID = LoadTGA("Image//jeep.tga");
+
+	// Oil barrels
+	MeshBuilder::GetInstance()->GenerateOBJ("blueoilbarrel", "OBJ//oilbarrel.obj");
+	MeshBuilder::GetInstance()->GetMesh("blueoilbarrel")->textureID = LoadTGA("Image//blueoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("blueoilbarrel2", "OBJ//oilbarrel2.obj");
+	MeshBuilder::GetInstance()->GetMesh("blueoilbarrel2")->textureID = LoadTGA("Image//blueoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("blueoilbarrel3", "OBJ//oilbarrel3.obj");
+	MeshBuilder::GetInstance()->GetMesh("blueoilbarrel3")->textureID = LoadTGA("Image//blueoilbarrel.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("greenoilbarrel", "OBJ//oilbarrel.obj");
+	MeshBuilder::GetInstance()->GetMesh("greenoilbarrel")->textureID = LoadTGA("Image//greenoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("greenoilbarrel2", "OBJ//oilbarrel2.obj");
+	MeshBuilder::GetInstance()->GetMesh("greenoilbarrel2")->textureID = LoadTGA("Image//greenoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("greenoilbarrel3", "OBJ//oilbarrel3.obj");
+	MeshBuilder::GetInstance()->GetMesh("greenoilbarrel3")->textureID = LoadTGA("Image//greenoilbarrel.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("greyoilbarrel", "OBJ//oilbarrel.obj");
+	MeshBuilder::GetInstance()->GetMesh("greyoilbarrel")->textureID = LoadTGA("Image//greyoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("greyoilbarrel2", "OBJ//oilbarrel2.obj");
+	MeshBuilder::GetInstance()->GetMesh("greyoilbarrel2")->textureID = LoadTGA("Image//greyoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("greyoilbarrel3", "OBJ//oilbarrel3.obj");
+	MeshBuilder::GetInstance()->GetMesh("greyoilbarrel3")->textureID = LoadTGA("Image//greyoilbarrel.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("redoilbarrel", "OBJ//oilbarrel.obj");
+	MeshBuilder::GetInstance()->GetMesh("redoilbarrel")->textureID = LoadTGA("Image//redoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("redoilbarrel2", "OBJ//oilbarrel2.obj");
+	MeshBuilder::GetInstance()->GetMesh("redoilbarrel2")->textureID = LoadTGA("Image//redoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("redoilbarrel3", "OBJ//oilbarrel3.obj");
+	MeshBuilder::GetInstance()->GetMesh("redoilbarrel3")->textureID = LoadTGA("Image//redoilbarrel.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("yellowoilbarrel", "OBJ//oilbarrel.obj");
+	MeshBuilder::GetInstance()->GetMesh("yellowoilbarrel")->textureID = LoadTGA("Image//yellowoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("yellowoilbarrel2", "OBJ//oilbarrel2.obj");
+	MeshBuilder::GetInstance()->GetMesh("yellowoilbarrel2")->textureID = LoadTGA("Image//yellowoilbarrel.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("yellowoilbarrel3", "OBJ//oilbarrel3.obj");
+	MeshBuilder::GetInstance()->GetMesh("yellowoilbarrel3")->textureID = LoadTGA("Image//yellowoilbarrel.tga");
+
+	// Debris
+	MeshBuilder::GetInstance()->GenerateOBJ("crates", "OBJ//crates.obj");
+	MeshBuilder::GetInstance()->GetMesh("crates")->textureID = LoadTGA("Image//crates.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("crates2", "OBJ//crates2.obj");
+	MeshBuilder::GetInstance()->GetMesh("crates2")->textureID = LoadTGA("Image//crates.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("crates3", "OBJ//crates3.obj");
+	MeshBuilder::GetInstance()->GetMesh("crates3")->textureID = LoadTGA("Image//crates.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("stones", "OBJ//stones.obj");
+	MeshBuilder::GetInstance()->GetMesh("stones")->textureID = LoadTGA("Image//stones.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("stones2", "OBJ//stones2.obj");
+	MeshBuilder::GetInstance()->GetMesh("stones2")->textureID = LoadTGA("Image//stones.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("stones3", "OBJ//stones3.obj");
+	MeshBuilder::GetInstance()->GetMesh("stones3")->textureID = LoadTGA("Image//stones.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("bigstones", "OBJ//bigstones.obj");
+	MeshBuilder::GetInstance()->GetMesh("bigstones")->textureID = LoadTGA("Image//bigstones.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("bigstones2", "OBJ//bigstones2.obj");
+	MeshBuilder::GetInstance()->GetMesh("bigstones2")->textureID = LoadTGA("Image//bigstones.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("bigstones3", "OBJ//bigstones3.obj");
+	MeshBuilder::GetInstance()->GetMesh("bigstones3")->textureID = LoadTGA("Image//bigstones.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("debris", "OBJ//debris.obj");
+	MeshBuilder::GetInstance()->GetMesh("debris")->textureID = LoadTGA("Image//debris.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("debris2", "OBJ//debris2.obj");
+	MeshBuilder::GetInstance()->GetMesh("debris2")->textureID = LoadTGA("Image//debris.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("debris3", "OBJ//debris3.obj");
+	MeshBuilder::GetInstance()->GetMesh("debris3")->textureID = LoadTGA("Image//debris.tga");
+
+	MeshBuilder::GetInstance()->GenerateOBJ("wood", "OBJ//wood.obj");
+	MeshBuilder::GetInstance()->GetMesh("wood")->textureID = LoadTGA("Image//wood.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("wood2", "OBJ//wood2.obj");
+	MeshBuilder::GetInstance()->GetMesh("wood2")->textureID = LoadTGA("Image//wood.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("wood3", "OBJ//wood3.obj");
+	MeshBuilder::GetInstance()->GetMesh("wood3")->textureID = LoadTGA("Image//wood.tga");
+
+	// Barb wires
+	MeshBuilder::GetInstance()->GenerateOBJ("barbwire", "OBJ//barbwire.obj");
+	MeshBuilder::GetInstance()->GetMesh("barbwire")->textureID = LoadTGA("Image//barbwire.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("barbwire2", "OBJ//barbwire2.obj");
+	MeshBuilder::GetInstance()->GetMesh("barbwire2")->textureID = LoadTGA("Image//barbwire.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("barbwire3", "OBJ//barbwire3.obj");
+	MeshBuilder::GetInstance()->GetMesh("barbwire3")->textureID = LoadTGA("Image//barbwire.tga");
+
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10, 0.1f);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -263,8 +359,78 @@ void SceneText::Init()
 	}
 	textObj[0]->SetText("HELLO WORLD");
 	state = START;
-	wave = 1;
+	wave = 7;
 	SpawnMortars(wave);
+
+	// Cargo
+	GenericEntity* cargo = Create::Entity("cargo", Vector3(300, 0, 0), Vector3(10, 10, 12), true);
+	cargo->SetAABB(MeshBuilder::GetInstance()->GetMesh("cargo")->Max, MeshBuilder::GetInstance()->GetMesh("cargo")->Min);
+	cargo->InitLOD("cargo", "cargo2", "cargo3");
+	CSpatialPartition::GetInstance()->Add(cargo);
+
+	// Jeep
+	GenericEntity* jeep = Create::Entity("jeep", Vector3(-150, 0, -150), Vector3(14, 14, 16), true);
+	jeep->SetAABB(MeshBuilder::GetInstance()->GetMesh("jeep")->Max, MeshBuilder::GetInstance()->GetMesh("jeep")->Min);
+	jeep->InitLOD("jeep", "jeep2", "jeep3");
+	CSpatialPartition::GetInstance()->Add(jeep);
+
+	//Oil barrels
+	GenericEntity* blueoilbarrel = Create::Entity("blueoilbarrel", Vector3(-200, 0, 50), Vector3(14, 15, 14), true);
+	blueoilbarrel->SetAABB(MeshBuilder::GetInstance()->GetMesh("blueoilbarrel")->Max, MeshBuilder::GetInstance()->GetMesh("blueoilbarrel")->Min);
+	blueoilbarrel->InitLOD("blueoilbarrel", "blueoilbarrel2", "blueoilbarrel3");
+	CSpatialPartition::GetInstance()->Add(blueoilbarrel);
+
+	GenericEntity* greenoilbarrel = Create::Entity("greenoilbarrel", Vector3(-150, 0, 100), Vector3(14, 15, 14), true);
+	greenoilbarrel->SetAABB(MeshBuilder::GetInstance()->GetMesh("greenoilbarrel")->Max, MeshBuilder::GetInstance()->GetMesh("greenoilbarrel")->Min);
+	greenoilbarrel->InitLOD("greenoilbarrel", "greenoilbarrel2", "greenoilbarrel3");
+	CSpatialPartition::GetInstance()->Add(greenoilbarrel);
+
+	GenericEntity* greyoilbarrel = Create::Entity("greyoilbarrel", Vector3(-200, 0, 150), Vector3(14, 15, 14), true);
+	greyoilbarrel->SetAABB(MeshBuilder::GetInstance()->GetMesh("greyoilbarrel")->Max, MeshBuilder::GetInstance()->GetMesh("greyoilbarrel")->Min);
+	greyoilbarrel->InitLOD("greyoilbarrel", "greyoilbarrel2", "greyoilbarrel3");
+	CSpatialPartition::GetInstance()->Add(greyoilbarrel);
+
+	GenericEntity* redoilbarrel = Create::Entity("redoilbarrel", Vector3(-150, 0, 200), Vector3(14, 15, 14), true);
+	redoilbarrel->SetAABB(MeshBuilder::GetInstance()->GetMesh("redoilbarrel")->Max, MeshBuilder::GetInstance()->GetMesh("redoilbarrel")->Min);
+	redoilbarrel->InitLOD("redoilbarrel", "redoilbarrel2", "redoilbarrel3");
+	CSpatialPartition::GetInstance()->Add(redoilbarrel);
+
+	GenericEntity* yellowoilbarrel = Create::Entity("yellowoilbarrel", Vector3(-200, 0, 250), Vector3(14, 15, 14), true);
+	yellowoilbarrel->SetAABB(MeshBuilder::GetInstance()->GetMesh("yellowoilbarrel")->Max, MeshBuilder::GetInstance()->GetMesh("yellowoilbarrel")->Min);
+	yellowoilbarrel->InitLOD("yellowoilbarrel", "yellowoilbarrel2", "yellowoilbarrel3");
+	CSpatialPartition::GetInstance()->Add(yellowoilbarrel);
+
+	// Debris
+	GenericEntity* crates = Create::Entity("crates", Vector3(0, 0, -350), Vector3(8, 8, 8), true);
+	crates->SetAABB(MeshBuilder::GetInstance()->GetMesh("crates")->Max, MeshBuilder::GetInstance()->GetMesh("crates")->Min);
+	crates->InitLOD("crates", "crates2", "crates3");
+	CSpatialPartition::GetInstance()->Add(crates);
+
+	GenericEntity* stones = Create::Entity("stones", Vector3(0, 0, -350), Vector3(8, 8, 8), true);
+	stones->SetAABB(MeshBuilder::GetInstance()->GetMesh("stones")->Max, MeshBuilder::GetInstance()->GetMesh("stones")->Min);
+	stones->InitLOD("stones", "stones2", "stones3");
+	CSpatialPartition::GetInstance()->Add(stones);
+
+	GenericEntity* bigstones = Create::Entity("stones", Vector3(0, 0, -350), Vector3(8, 8, 8), true);
+	bigstones->SetAABB(MeshBuilder::GetInstance()->GetMesh("bigstones")->Max, MeshBuilder::GetInstance()->GetMesh("bigstones")->Min);
+	bigstones->InitLOD("bigstones", "bigstones2", "bigstones3");
+	CSpatialPartition::GetInstance()->Add(bigstones);
+
+	GenericEntity* debris = Create::Entity("debris", Vector3(0, 0, -350), Vector3(8, 8, 8), true);
+	debris->SetAABB(MeshBuilder::GetInstance()->GetMesh("debris")->Max, MeshBuilder::GetInstance()->GetMesh("debris")->Min);
+	debris->InitLOD("debris", "debris2", "debris3");
+	CSpatialPartition::GetInstance()->Add(debris);
+
+	GenericEntity* wood = Create::Entity("wood", Vector3(0, 0, -350), Vector3(8, 8, 8), true);
+	wood->SetAABB(MeshBuilder::GetInstance()->GetMesh("wood")->Max, MeshBuilder::GetInstance()->GetMesh("wood")->Min);
+	wood->InitLOD("wood", "wood2", "wood3");
+	CSpatialPartition::GetInstance()->Add(wood);
+
+	// Barb wire
+	GenericEntity* barbwire = Create::Entity("barbwire", Vector3(-90, 0, 120), Vector3(11, 11, 14), true);
+	barbwire->SetAABB(MeshBuilder::GetInstance()->GetMesh("barbwire")->Max, MeshBuilder::GetInstance()->GetMesh("barbwire")->Min);
+	barbwire->InitLOD("barbwire", "barbwire2", "barbwire3");
+	CSpatialPartition::GetInstance()->Add(barbwire);
 }
 
 void SceneText::SpawnMortars(int count)
