@@ -221,6 +221,7 @@ void SceneText::Init()
 		{
 			GenericEntity* wall = Create::Entity("Wall", Vector3(-300 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);
 			wall->SetAABB(MeshBuilder::GetInstance()->GetMesh("Wall")->Max, MeshBuilder::GetInstance()->GetMesh("Wall")->Min);
+			wall->SetType("wall");
 			CSpatialPartition::GetInstance()->Add(wall);
 
 			wall = Create::Entity("WallGreen", Vector3(-322 + j * 11, 0, -450 + i * 100), Vector3(10, 50, 98), true);

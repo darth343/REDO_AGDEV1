@@ -586,6 +586,11 @@ bool EntityManager::CheckForCollision(void)
 						}
 						else
 						{
+							if (thatEntity->GetType() == "ebullet" && thisEntity->GetType() == "wall")
+							{
+							}
+							else
+								continue;
 							if (!thatEntity->HasChildren() && CheckAABBCollision(thisEntity, thatEntity))
 							{
 								thisEntity->SetIsDone(true);
